@@ -1,0 +1,57 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// 管理端
+		{
+			"path": "pages/index/index",
+			"style": {}
+		},
+		// 登录
+		{
+			"path" : "pages/login/login",
+			"style" : {}
+		},
+		// 我的
+		{
+			"path": "pages/my/index",
+			"style": {
+				"navigationBarTitleText": "uView-center"
+			}
+		}
+		// 应用中心
+        ,{
+            "path" : "pages/app/app",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uView",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#909399",
+	    "selectedColor": "#303133",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/index/index",
+	        "iconPath": "static/icon/admin.png",
+	        "selectedIconPath": "static/icon/admin_select.png",
+	        "text": "管理端"
+	    },{
+	        "pagePath": "pages/app/app",
+	        "iconPath": "static/icon/app.png",
+	        "selectedIconPath": "static/icon/app_select.png",
+	        "text": "应用中心"
+	    },{
+	        "pagePath": "pages/my/index",
+	        "iconPath": "static/icon/my.png",
+	        "selectedIconPath": "static/icon/my_select.png",
+	        "text": "我的"
+	    }]
+	}
+}
