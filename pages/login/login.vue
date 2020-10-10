@@ -2,12 +2,29 @@
 	<view class="wrap">
 		<view class="top"></view>
 		<view class="content">
-			<view class="title">欢迎登录美团</view>
-			<input class="u-border-bottom" type="number" v-model="tel" placeholder="请输入手机号" />
-			<button @tap="submit" :style="[inputStyle]" class="getCaptcha">获取短信验证码</button>
-			<view class="alternative">
-				<view class="password">密码登录</view>
-				<view class="issue">遇到问题</view>
+			<view class="title">欢迎登录</view>
+			<view class="u-demo-area">
+				<u-field
+					v-model="tel"
+					label="手机号"
+					maxlength="11"
+					:error-message="errorMessage"
+					placeholder="请填写手机号"
+				>
+				</u-field>
+				<u-field
+					v-model="code"
+					label="验证码"
+					placeholder="请填写验证码"
+				>	
+					<template slot="right">
+						<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode"
+						@change="codeChange" :startText="startText" :changeText="changeText"></u-verification-code>
+						<u-button size="mini" type="success" @click="getCode">{{tips}}</u-button>
+					</template>
+				</u-field>
+				
+				<u-button type="primary" :custom-style="{width: '600rpx', height: '70rpx', marginTop: '30rpx'}" @click="submit" shape="square">登录</u-button>
 			</view>
 		</view>
 		<view class="buttom">
@@ -34,24 +51,70 @@
 export default {
 	data() {
 		return {
-			tel: ''
+			tel: '',
+			code: '',
+			errorMessage: '',
+			tips: '',
+			seconds: 60,
+			refCode: null,
+			startText: '获取验证码',
+			changeText: 'X秒重新获取',
+			endText: '重新获取'
 		}
 	},
-	computed: {
-		inputStyle() {
-			let style = {};
-			if(this.tel) {
-				style.color = "#fff";
-				style.backgroundColor = this.$u.color['warning'];
-			}
-			return style;
-		}
+	onReady() {
+		// 注意这里为错误示例，目前微信小程序最新稳定版开发工具如此
+		// 赋值会报错，很诡异，其他端无此问题
+		console.log(this)
+		this.refCode = this.$refs.uCode;
 	},
 	methods: {
+		codeChange(text) {
+			// console.log(text);
+			this.tips = text;
+		},
+		getCode() {
+			if(this.refCode.canGetCode) {
+				// 模拟向后端请求验证码
+				uni.showLoading({
+					title: '正在获取验证码'
+				})
+				setTimeout(() => {
+					uni.hideLoading();
+					// 这里此提示会被this.start()方法中的提示覆盖
+					this.$u.toast('验证码已发送');
+					// 通知验证码组件内部开始倒计时
+					this.$refs.uCode.start();
+				}, 2000);
+			} else {
+				this.$u.toast('验证码已发送，请耐心等待');
+			}
+		},
+		end() {
+			this.$u.toast('倒计时结束');
+		},
+		start() {
+			this.$u.toast('倒计时开始');
+		},
 		submit() {
-			if(this.$u.test.mobile(this.tel)) {
-				this.$u.route({
-					url: 'pages/template/login/code'
+			// {
+			// 	"account":"15114879865",
+			// 	"code":"123456"
+			// }
+			if(this.$u.test.mobile(this.tel) && this.code) {
+				const params = {
+					account: this.tel,
+					code: this.code
+				}
+				console.log(params)
+				this.$u.api.login(params).then(res => {
+					console.log(res)
+					uni.setStorageSync('token', res.token)
+					uni.setStorageSync('name', res.name)
+					this.$u.route({
+						type: 'switchTab',
+						url: 'pages/index/index'
+					})
 				})
 			}
 		}
@@ -61,10 +124,12 @@ export default {
 
 <style lang="scss" scoped>
 .wrap {
+	background-color: #FFFFFF;
 	font-size: 28rpx;
+	padding-top: 80rpx;
 	.content {
-		width: 600rpx;
-		margin: 80rpx auto 0;
+		width: 680rpx;
+		margin: 0 auto 0;
 
 		.title {
 			text-align: left;
