@@ -31,6 +31,12 @@
 				"navigationBarTextStyle": "white"
 			}
         }
+        ,{
+            "path" : "pages/mingxi/mingxi",
+            "style" : {
+				"navigationBarTitleText":"明细"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
