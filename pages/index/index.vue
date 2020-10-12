@@ -163,6 +163,12 @@
 			}
 		},
 		onLoad() {
+
+		},
+		onShow() {
+			this.$u.api.getAdminInfo().then(res => {
+				console.log(res)
+			})
 		},
 		methods: {
 			change(i) {

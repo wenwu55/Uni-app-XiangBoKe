@@ -1,8 +1,8 @@
 // 如果没有通过拦截器配置域名的话，可以在这里写上完整的URL(加上域名部分)
 // 登录 accout， code
-let LoginUrl = '/api/app/login';
+let LoginUrl = '/app/login';
 // 获取验证码
-
+let getCode = '/app/send/msg'
 /* 管理端 */
 // 首页-收入统计和车场实时统计
 let adminUrl = '/app/home/statistic/income'
@@ -25,9 +25,10 @@ const install = (Vue, vm) => {
 	
 	// 此处使用了传入的params参数，一切自定义即可
 	let getAdminInfo = (params = {}) => vm.$u.get(adminUrl);
+	let fetchCode = (params = {}) => vm.$u.get(getCode, params);
 	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
-	vm.$u.api = {login, getAdminInfo};
+	vm.$u.api = {login, getAdminInfo, fetchCode};
 }
 
 export default {

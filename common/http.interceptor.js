@@ -2,7 +2,7 @@
 // 同时，我们也可以在此使用getApp().globalData，如果你把token放在getApp().globalData的话，也是可以使用的
 const install = (Vue, vm) => {
 	Vue.prototype.$u.http.setConfig({
-		baseUrl: 'http://xuxu.free.vipnps.vip',
+		baseUrl: 'http://xuxu.free.vipnps.vip/api',
 		// 设置自定义头部content-type
 		header: {
 			'content-type': 'application/json',
