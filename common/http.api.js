@@ -5,7 +5,7 @@ let LoginUrl = '/app/login';
 let getCode = '/app/send/msg'
 /* 管理端 */
 // 首页-收入统计和车场实时统计
-let adminUrl = '/app/home/statistic/income'
+let adminUrl = '/manager/app/home/statistic/income'
 // 车场实时统计-车牌号-入场时间-出场时间
 let carTotalUrl = '/app/home/car/flowRecord'
 // 车场指标明细-收入统计和车场实时统计

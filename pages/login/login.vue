@@ -70,7 +70,6 @@ export default {
 	},
 	methods: {
 		codeChange(text) {
-			// console.log(text);
 			this.tips = text;
 		},
 		getCode() {
