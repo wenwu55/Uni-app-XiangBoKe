@@ -37,16 +37,16 @@
 				<view>昨日总收入</view>
 				<view>
 					<text class="mainColor">¥</text>
-					<text class="blackColor font700">123456</text>
+					<text class="blackColor font700">{{indexData.yesterdayIncome}}</text>
 				</view>
 			</view>
 			<u-line color="#F5F6FA" length="56" direction="col"/>
 			<view class="middle">
 				<view class="">
-					<text>当月累计收入：</text> <text class="mainColor">¥</text><text class="blackColor font700">123456</text>
+					<text>当月累计收入：</text> <text class="mainColor">¥</text><text class="blackColor font700">{{indexData.monthIncomeTotal}}</text>
 				</view>
 				<view class="">
-					<text>当月环比上月下降 ：</text> <text class="mainColor font700">55%</text>
+					<text>当月环比上月下降 ：</text> <text class="mainColor font700">{{indexData.monthRatio}}%</text>
 				</view>
 			</view>
 			<view class="right mainColor">
@@ -61,12 +61,12 @@
 			<view class="left">
 				<u-image width="61rpx" height="86rpx" src="../../static/2.png"></u-image>
 				<view class="info">
-					<view>运营经理：啦啦</view>
-					<view>联系电话：123-4567-8910</view>
+					<view>运营经理：{{indexData.operationName}}</view>
+					<view>联系电话：{{indexData.operationMobile}}</view>
 				</view>
 			</view>
 			<view class="btn">
-				<u-button type="primary" size="mini" shape="square">立即联系</u-button>
+				<u-button type="primary" size="mini" shape="square" @click="tel">立即联系</u-button>
 			</view>
 		</view>
 		
@@ -88,16 +88,16 @@
 			
 			<view class="main u-text-center u-margin-top-10">
 				<view class="u-font-sm left">
-					<view class="money">¥123456</view>
+					<view class="money">¥{{indexData.paymentTotal}}</view>
 					<view class="infoColor">湘泊客缴费总额</view>
 				</view>
 				<view class="u-font-sm right">
 					<view class="u-font-sm">
-						<view class="money blackColor font700">123456</view>
+						<view class="money blackColor font700">{{indexData.inCarTotal || 0}}</view>
 						<view class="infoColor">入场车辆</view>
 					</view>
 					<view class="u-font-sm u-margin-left-30">
-						<view class="money blackColor font700">123456</view>
+						<view class="money blackColor font700">{{indexData.outCarTotal}}</view>
 						<view class="infoColor">出场车辆</view>
 					</view>
 				</view>
@@ -138,6 +138,7 @@
 	export default {
 		data() {
 			return {
+				indexData: {},
 				title: 'Hello',
 				list: [
 					{
@@ -168,6 +169,7 @@
 		onShow() {
 			this.$u.api.getAdminInfo().then(res => {
 				console.log(res)
+				this.indexData = res
 			})
 		},
 		methods: {
@@ -176,6 +178,15 @@
 			},
 			routerMing() {
 				this.$u.route('/pages/mingxi/mingxi')
+			},
+			tel() {
+				this.$u.route({
+					url: '/pages/tel/tel',
+					params: {
+						name: this.indexData.operationName,
+						tel: this.indexData.operationMobile
+					}
+				})
 			}
 		}
 	}

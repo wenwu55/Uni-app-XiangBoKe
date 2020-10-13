@@ -38,6 +38,19 @@
 				"navigationBarTitleText":"明细"
 			}
         }
+		// 更多
+        ,{
+            "path" : "pages/indexMore/indexMore",
+            "style" : {
+				"navigationBarTitleText":"车场实时统计"
+			}
+        }
+        ,{
+            "path" : "pages/tel/tel",
+            "style" : {
+				"navigationBarTitleText":"支持热线"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
