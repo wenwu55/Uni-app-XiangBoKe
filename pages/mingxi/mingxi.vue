@@ -60,9 +60,6 @@ export default {
 					formatFloat2: true, // 自定义变量：是否格式化为两位小数
 					formatThousands: true // 自定义变量：是否添加千分位
 				},
-				legend: {
-					data: ['邮件', '手机']
-				},
 				grid: {
 					left: '5%',
 					right: '8%',
@@ -141,6 +138,11 @@ export default {
 		},	
 		change(i) {
 			this.current = i
+			if (this.option === this.option2) {
+				this.option = this.option3
+			} else {
+				this.option = this.option2
+			}
 		},
 		/**
 		 * 点击事件

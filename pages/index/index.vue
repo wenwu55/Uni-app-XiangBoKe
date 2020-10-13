@@ -50,7 +50,7 @@
 				</view>
 			</view>
 			<view class="right mainColor">
-				<view class="u-flex iconCenter">
+				<view class="u-flex iconCenter" @click="routerMing">
 					<text>明细</text>
 					<u-icon name="arrow-right" size="24"></u-icon>
 				</view>
@@ -174,6 +174,9 @@
 			change(i) {
 				this.current = i
 			},
+			routerMing() {
+				this.$u.route('/pages/mingxi/mingxi')
+			}
 		}
 	}
 </script>

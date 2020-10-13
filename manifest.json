@@ -1,6 +1,6 @@
 {
-    "name" : "uView-demo",
-    "appid" : "__UNI__DE5C136",
+    "name" : "xiangboke",
+    "appid" : "__UNI__C64C00D",
     "description" : "",
     "versionName" : "1.5.0",
     "versionCode" : "100",
@@ -55,7 +55,9 @@
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     /* 快应用特有相关 */
